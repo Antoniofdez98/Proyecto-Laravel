@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home/{name}', function($name){
-    return view('home', ['name' => $name]);
-})->where('name', '[A-Za-z]+');
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('/', 'App\Http\Controllers\AdminController@index')->name('admin');;
+    Route::get('heroes', 'App\Http\Controllers\HeroController@index')->name('admin.heroes');
+    Route::get('items', 'App\Http\Controllers\ItemController@index')->name('admin.items');
+    Route::get('enemies', 'App\Http\Controllers\EnemyController@index')->name('admin.enemies');
+});
